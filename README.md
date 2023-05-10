@@ -2,11 +2,17 @@
 
 ## Prerequisites:
 A Valid Go-Hugo website is provided
+
 There are no Git Submodules
+
 The theme ananke is installed
+
 No directory dist/ committed
+
 Makefile present
+
 Add comments in the Makefile to describe what each target is expected to do.
+
 Add a “help” target to the Makefile which prints out the list of targets and their usage
 
 
