@@ -7,6 +7,14 @@ if ! command -v hugo &> /dev/null; then
     sudo apt-get install -y hugo
 fi
 
+# Create the dist directory if it doesn't exist
+if [ ! -d "./dist" ]; then
+    mkdir ./dist
+fi
+
+# Generate the website using Hugo
+hugo -d ./dist
+
 # Check if Make is already installed
 if ! command -v make &> /dev/null; then
     # Install Make
