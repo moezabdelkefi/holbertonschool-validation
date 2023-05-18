@@ -39,4 +39,4 @@ lint: ## Perform static analysis on the source code
 	golangci-lint run
 
 unit-tests: ## Test the application by sending HTTP requests
-	go test -v -short -coverprofile=coverage-units.out
+	@go test -v -short -coverprofile=coverage-units.out
