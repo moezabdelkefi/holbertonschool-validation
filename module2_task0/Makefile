@@ -13,6 +13,7 @@ run:
 stop:
 	kill `pgrep $(BINARY_NAME)`
 
+# Clean the project directory
 clean: stop
 	rm -f $(BINARY_NAME) $(LOG_FILE)
 
