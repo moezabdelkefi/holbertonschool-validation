@@ -1,30 +1,39 @@
-.PHONY: build run stop clean test help
-
+# Variables
 BINARY_NAME := awesome-api
-LOG_FILE := awesome-api.log
+LOG_FILE := $(BINARY_NAME).log
 PORT := 9999
 
 
-build: lint	##test
-    go build -o awesome-api
+help: ## Print a list of all the goals with descriptions
 
-run:	##test
-	nohup ./$(BINARY_NAME) > $(LOG_FILE) 2>&1 &
+help:	
+		@awk 'BEGIN {FS = ":.*##"; } /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+		
+build: lint ## Build the binary
+	go build -o awesome-api
 
-stop:	##test
-	kill `pgrep $(BINARY_NAME)`
 
 
-clean: stop	## Clean the project directory
-	rm -f $(BINARY_NAME) $(LOG_FILE)
+run: build ## Run the application
+	./$(BINARY_NAME) > $(LOG_FILE) 2>&1 &
 
-test:	##test
-	@curl -s "http://localhost:$(PORT)"
-	@curl -s "http://localhost:$(PORT)/health"
+stop: ## Stop the application
+	kill "$(shell pgrep $(BINARY_NAME))"
 
-help:	##test
-	@awk 'BEGIN {FS = ":.*##"; printf "Usage: make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
-lint:	##test
-    golangci-lint run
+clean: ## Stop the application, delete binary and log files
+	-kill "$(shell pgrep $(BINARY_NAME))"
+	rm -f $(BINARY_NAME)
+	rm -f $(LOG_FILE)
 
+
+test: ## Test the application
+	@echo "Testing / endpoint:"
+	curl -s http://localhost:$(PORT)
+	@echo
+	@echo "Testing /health endpoint:"
+	curl -s http://localhost:$(PORT)/health
+	@echo
+
+lint: ## Perform static analysis on the source code
+	golangci-lint run
