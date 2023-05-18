@@ -22,10 +22,4 @@ test:
 	@curl -s "http://localhost:$(PORT)/health"
 
 help:
-	@echo "Available targets:"
-	@echo "  build   : Compile the source code to binary"
-	@echo "  run     : Run the application in the background"
-	@echo "  stop    : Stop the running application"
-	@echo "  clean   : Stop the application and clean up binary and log files"
-	@echo "  test    : Perform HTTP requests to test the server"
-	@echo "  help    : Show this help message"
+	@awk 'BEGIN {FS = ":.*##"; printf "Usage: make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
