@@ -25,4 +25,4 @@ Please refer to the Makefile for more details on each stage.
 - `make run`: Run the application in the background and write logs to a file.
 - `make stop`: Stop the running application.
 - `make test`: Test the application by sending HTTP requests
-- `èintegration-tests`:should be implemented and should execute (successfully) the Golang integration tests.
+- `integration-tests`:should be implemented and should execute (successfully) the Golang integration tests.
