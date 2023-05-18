@@ -19,6 +19,7 @@ clean: stop
 test:
 	@curl -s "http://localhost:$(PORT)" || echo "404 Page Not Found"
 	@curl -s "http://localhost:$(PORT)/health" || echo "Health Check Failed"
+	@curl -s   "http://localhost:$(port) || echo "TESTFAILED"
 
 help:
 	@echo "Available targets:"
