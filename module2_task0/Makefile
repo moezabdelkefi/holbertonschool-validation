@@ -18,8 +18,8 @@ clean: stop	## Clean the project directory
 	rm -f $(BINARY_NAME) $(LOG_FILE)
 
 test:
-	@curl -s "http://localhost:$(PORT)" || echo "404 Page Not Found"
-	@curl -s "http://localhost:$(PORT)/health" || echo "Health Check Failed"
+	@curl -s "http://localhost:$(PORT)"
+	@curl -s "http://localhost:$(PORT)/health"
 
 help:
 	@echo "Available targets:"
