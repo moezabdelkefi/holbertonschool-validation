@@ -4,20 +4,20 @@ BINARY_NAME := awesome-api
 LOG_FILE := awesome-api.log
 PORT := 9999
 
-build:
+build:	##test
 	go build -o $(BINARY_NAME)
 
-run:
+run:	##test
 	nohup ./$(BINARY_NAME) > $(LOG_FILE) 2>&1 &
 
-stop:
+stop:	##test
 	kill `pgrep $(BINARY_NAME)`
 
 
 clean: stop	## Clean the project directory
 	rm -f $(BINARY_NAME) $(LOG_FILE)
 
-test:
+test:	##test
 	@curl -s "http://localhost:$(PORT)"
 	@curl -s "http://localhost:$(PORT)/health"
 
