@@ -40,12 +40,12 @@ validate: ## Validate generated HTML using Holberton's W3C Validator
 
 check: check-markdown check-links ## Check Markdown and links
 
-check-markdown: ## test
+check-markdown:
 	@echo "Checking Markdown files..."
 	@markdownlint README.md content/posts/
 	@echo "OK"
 
-check-links: ## test
+check-links:
 	@echo "Checking links..."
 	@markdown-link-check README.md content/posts/
 
