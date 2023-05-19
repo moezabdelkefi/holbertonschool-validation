@@ -29,3 +29,4 @@ Please refer to the Makefile for more details on each stage.
 - `make test`: Test the application by sending HTTP requests
 - `make integration-tests`: Tests the application by sending HTTP requests
 - `validate` :should validate the file ./dist/index.html
+- `check`:should fail when one of the 2 following steps fails
