@@ -33,10 +33,8 @@ unit-tests: ## Run unit tests
 	@go test -v -short -coverprofile=coverage-units.out
 	
 integration-tests: ##test
-	@go test -v -tags=integration -coverprofile=coverage-integrations.out ./...
+	@go test -v -tags=integration -coverprofile=coverage-integrations.out
 
-markdown-link-check: ## Check Markdown files for dead links
-	@$(MARKDOWNLINKCHECK) ./content/posts/*.md
-
-validate: ## Validate generated HTML using Holberton's W3C Validator
-	@$(W3C_VALIDATOR) ./dist/index.html || true
+check: ## check
+	markdownlint README.md content/posts/
+	markdown-link-check README.md content/posts/
