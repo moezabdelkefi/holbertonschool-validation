@@ -38,5 +38,5 @@ test: ## Test the application
 lint: ## Perform static analysis on the source code
 	@golangci-lint run 
 
-unit-tests: ## 
-	@go test -v -short -coverprofile=coverage-units.out 
+unit-tests:	## test
+	go test -v -short -coverprofile=coverage-units.out
