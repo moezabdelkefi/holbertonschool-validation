@@ -43,7 +43,10 @@ check: check-markdown check-links ## Check Markdown and links
 check-markdown: ## test
 	@echo "Checking Markdown files..."
 	@markdownlint README.md content/posts/
+	@echo "OK"
 
 check-links: ## test
 	@echo "Checking links..."
 	@markdown-link-check README.md content/posts/
+
+.PHONY: help build run stop clean test lint unit-tests integration-tests validate check check-markdown check-links
