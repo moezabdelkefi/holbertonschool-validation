@@ -29,7 +29,8 @@ lint: ## Perform static analysis on the source code
 	@golangci-lint run
 
 unit-tests: ## Run the unit tests
-	@go test -v -short -coverprofile=coverage-units.out ./...
+	@go test -v -short -coverprofile=coverage-units.out
 
-integration-tests: ## Run the integration tests
-	@go test -tags=integration -coverprofile=coverage-integrations.out ./...
+integration-tests: ## Run integration tests
+	go test -tags=integration -coverprofile=coverage-integrations.out
+
