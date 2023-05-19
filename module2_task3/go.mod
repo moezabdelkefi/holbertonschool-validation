@@ -1,5 +1,6 @@
 module github.com/moezabdelkefi/awesome-api
 
-go 1.18
 
-require github.com/gorilla/mux v1.8.0 // indirect
+go 1.13
+
+require github.com/gorilla/mux v1.8.0
