@@ -43,10 +43,21 @@ check: check-markdown check-links ## Check Markdown and links
 check-markdown:
 	@echo "Checking Markdown files..."
 	@markdownlint README.md content/posts/
-	@echo "OK"
+	@if [ $$? -eq 0 ]; then \
+		echo "OK"; \
+	else \
+		echo "FAIL"; \
+		exit 1; \
+	fi
 
 check-links:
 	@echo "Checking links..."
 	@markdown-link-check README.md content/posts/
+	@if [ $$? -eq 0 ]; then \
+		echo "OK"; \
+	else \
+		echo "FAIL"; \
+		exit 1; \
+	fi
 
 .PHONY: help build run stop clean test lint unit-tests integration-tests validate check check-markdown check-links
