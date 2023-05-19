@@ -1,63 +1,22 @@
-# Variables
-BINARY_NAME := awesome-api
-LOG_FILE := $(BINARY_NAME).log
-PORT := 9999
-W3C_VALIDATOR := python3 /opt/W3C-Validator/w3c_validator.py
+build: ## execute a command that create a new blog
+	markdownlint README.md content/posts/
+	markdown-link-check README.md content/posts/
+	hugo
 
-help: ## Print a list of all the goals with descriptions
-	@awk 'BEGIN {FS = ":.*##"; } /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+check: ## check
+	markdownlint README.md content/posts/
+	markdown-link-check README.md content/posts/
 
-build: lint ## Build the binary
-	go build -o $(BINARY_NAME)
+clean: ## execute a command that clean the dist directory
+	rm -rf dist
 
-run: build ## Run the application
-	./$(BINARY_NAME) > $(LOG_FILE) 2>&1 &
+validate: ## validation
+	python3 /opt/W3C-Validator/w3c_validator.py ./dist/index.html || true
 
-stop: ## Stop the application
-	kill "$(shell pgrep $(BINARY_NAME))"
 
-clean: ## Clean up generated files and artifacts
-	-kill "$(shell pgrep $(BINARY_NAME))"
-	rm -f $(BINARY_NAME)
-	rm -f $(LOG_FILE)
-	rm -f coverage-units.out coverage-integrations.out
+post:  ## execute a command that create a new post
+	hugo new posts/$(POST_NAME).md
+	sed -i 's/title: .*/title:"$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
-test:	## Test:
-	go test -v -short -coverprofile=coverage-units.out
-	go test -v -tags=integration -coverprofile=coverage-integrations.out ## Run both unit tests and integration tests
-
-lint: ## Perform static analysis on the source code
-	@golangci-lint run
-
-unit-tests: ## Run unit tests
-	@go test -v -short -coverprofile=coverage-units.out
-	
-integration-tests: ## Run integration tests
-	@go test -v -tags=integration -coverprofile=coverage-integrations.out
-
-validate: ## Validate generated HTML using Holberton's W3C Validator
-	@$(W3C_VALIDATOR) ./dist/index.html || true
-
-check: check-markdown check-links ## Check Markdown and links
-
-check-markdown:
-	@echo "Checking Markdown files..."
-	@markdownlint README.md content/posts/
-	@if [ $$? -eq 0 ]; then \
-		echo "OK"; \
-	else \
-		echo "FAIL"; \
-		exit 1; \
-	fi
-
-check-links:
-	@echo "Checking links..."
-	@markdown-link-check README.md content/posts/
-	@if [ $$? -eq 0 ]; then \
-		echo "OK"; \
-	else \
-		echo "FAIL"; \
-		exit 1; \
-	fi
-
-.PHONY: help build run stop clean test lint unit-tests integration-tests validate check check-markdown check-links
+help:  ## Show this help.
+	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
