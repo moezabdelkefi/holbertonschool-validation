@@ -1,7 +1,7 @@
 ---
 name: module3_task2
-# Events that trigger workflows
-on: # yamllint disable-line rule:truthy
+
+on:   # yamllint disable-line rule:truthy
   push:
     branches:
       - master
