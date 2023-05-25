@@ -1,10 +1,9 @@
 ---
 name: module3_task1
-# Events that trigger workflows
-on: 	# yamllint disable-line rule:truthy
+on:  # test
   push:
     branches:
-      - main
+      - master
   schedule:
     - cron: 0 0 * * *
 jobs:
