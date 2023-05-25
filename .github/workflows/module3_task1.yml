@@ -1,36 +1,19 @@
 ---
 name: module3_task1
-on:  # test
+# Events that trigger workflows
+on:  # yamllint disable-line rule:truthy
   push:
     branches:
       - master
   schedule:
-    - cron: 0 0 * * *
+    - cron: '0 0 * * *'
 jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - name: Checkout
+      - name: "Checkout"  # Download code from the repository
         uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "14"
-      - name: Install markdownlint
-        run: npm install -g markdownlint-cli
-      - name: Install markdown-link-check
-        run: npm install -g markdown-link-check
-      - name: Install Hugo
-        run: >
-          wget -O hugo.tar.gz
-          https://github.com/gohugoio/hugo/releases/download/v0.92.2/hugo_extended_0.92.2_Linux-64bit.tar.gz
-
-          tar -xf hugo.tar.gz
-
-          sudo mv hugo /usr/local/bin/
-      - name: Run make build
-        working-directory: module3_task1
-        run: |
-          markdownlint content/posts
-          find content/posts -name '*.md' -exec markdown-link-check {} \;
-          hugo -d dist/
+      - name: "Run bash script"
+        run: cd module3_task1 && ./setup.sh
+      - name: "Run make build"  # Execute the command make build
+        run: cd module3_task1 && make build
