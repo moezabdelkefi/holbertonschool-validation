@@ -1,9 +1,10 @@
 ---
 name: module3_task1
-on:  # test
+on:	 # test
   push:
     branches:
       - main
+      - master
   schedule:
     - cron: 0 0 * * *
 jobs:
