@@ -1,7 +1,7 @@
 ---
 name: module3_task1
 
-on:	#test
+on:  # test
   push:
     branches:
       - main
@@ -24,8 +24,18 @@ jobs:
       - name: Install markdownlint
         run: npm install -g markdownlint-cli
 
+      - name: Install markdown-link-check
+        run: npm install -g markdown-link-check
+
+      - name: Install Hugo
+        run: |
+          wget -O hugo.tar.gz https://github.com/gohugoio/hugo/releases/download/v0.92.2/hugo_extended_0.92.2_Linux-64bit.tar.gz
+          tar -xf hugo.tar.gz
+          sudo mv hugo /usr/local/bin/
+
       - name: Run make build
         working-directory: module3_task1
         run: |
           markdownlint content/posts
-          make build
+          find content/posts -name '*.md' -exec markdown-link-check {} \;
+          hugo -d dist/
