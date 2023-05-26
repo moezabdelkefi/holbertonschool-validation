@@ -50,4 +50,5 @@ package: ## produces a file awesome-website.zip
 	zip -r awesome-website.zip awesome-api dist/
 
 lint-docker: build-docker
-	docker container run --rm -i hadolint/hadolint < .build/Dockerfile
+	docker container run --rm -i hadolint/hadolint < .build/
+	
