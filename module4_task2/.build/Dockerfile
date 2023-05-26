@@ -9,7 +9,7 @@ SHELL ["/bin/sh", "-o", "pipefail", "-c"]
 
 # To install any applications and packages required for your container.
 RUN apk update && \
-rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/*
 
 # hadolint ignore=DL3018
 RUN apk add --no-cache curl zip bash nodejs npm
@@ -27,7 +27,7 @@ RUN apk add --no-cache hugo
 # Install Golangcilinand markdownlint
 ARG GOLANGCI_VERSION: "1.15.0"
 RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b "$(go env GOPATH)/bin" v1.29.0 \
-&& npm install markdownlint-cli@0.26.0 markdown-link-check@3.8.6
+    && npm install markdownlint-cli@0.26.0 markdown-link-check@3.8.6
 
 
 # container-structure-test
