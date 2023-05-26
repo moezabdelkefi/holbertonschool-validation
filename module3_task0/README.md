@@ -1,27 +1,27 @@
 ## Prerequisites
+- Go installed on your local machine
+- Port 9999 available for running the server
 
 ## Lifecycle
+This project follows the following life-cycle stages:
 
-- build: compile the source code of the application to a binary named awesome-api (the name awesome-api comes from the command go mod init github.com/<your github handle>/awesome-api) with the command go build. The first build may takes some times.
+- `make build`: Compiles the source code of the application to a binary.
+- `run`: Runs the application in the background and writes logs to a file.
+- `make stop`: Stops the running application.
+- `make clean`: Stops the application, deletes the binary and log files.
+- `make help`: Tests the application by sending HTTP requests.
+- `make lint`: Tests the application by sending HTTP requests.
+- `make unit-tests`: Tests the application by sending HTTP requests.
+- `make integration-tests`: Tests the application by sending HTTP requests.
 
-- run: Run the application in background by executing the binary awesome-api, and write logs into a file named awesome-api.log with the command ./awesome-api >./awesome-api.log 2>&1 &.
 
-- stop: Stop the application with the command kill XXXXX where XXXXX is the Process ID of the application. For instance: kill "$(pgrep awesome-api)".
+## Makefile Targets
 
-- post: Create a new blog post whose filename and title come from the environment variables POST_TITLE and POST_NAME
-
-- clean: Stop the application. Delete the binary awesome-api and the log file awesome-api.log
-
-- test: You want to test it to ensure that it behaves as expected.
-
-- unit-tests: Run unit tests.
-
-- integration-tests: Run integration tests.
-
-- lint: Lint go lang code.
-
-- check: Lint markdonw source, check dead links.
-
-- validate: Validate the file dist/index.html using the command line Holberton’s W3C Validator.
-
-- help: Display help message.
+- `make help`: Print a list of all the goals with descriptions.
+- `make build`: Compile the source code of the application to a binary.
+- `make clean`: Stop the application, delete binary and log files.
+- `make run`: Run the application in the background and write logs to a file.
+- `make stop`: Stop the running application.
+- `make test`: Test the application by sending HTTP requests.
+- `make unit-tests`: Tests the application by sending HTTP requests.
+- `make integration-tests`: Tests the application by sending HTTP requests.
