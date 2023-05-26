@@ -1,6 +1,6 @@
 ---
 # Workflow name
-name: module4_task4
+name: module4_task3
 # action who declench workflow
 "on":
   push:
@@ -36,6 +36,12 @@ jobs:
           mkdir -p $HOME/bin
           mv container-structure-test $HOME/bin/
           export PATH=$PATH:$HOME/bin
+          make help
+          make build-docker
+          make build
+          make lint
+          make unit-tests
+          make integration-tests
           make package
           make docker-tests
 
@@ -66,10 +72,20 @@ jobs:
       - run: gh release create v1.0.1 --title "v1.0.1"
             --notes DEPLOY.md 2>/dev/null || echo "OK"
 
-      - name: akhileshns/heroku-deploy
-        uses: akhileshns/heroku-deploy@v3.12.12
+      - name: Deploy in Netlify
+        # statement : pullrequest and branch main
+        if: |
+          github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+        uses: nwtgck/actions-netlify@v2.0
         with:
-          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
-          HEROKU_APP_NAME: my-web-hugo
-          HEROKU_EMAIL: ${{secrets.HEROKU_EMAIL}}
-          usedocker: true
+          publish-dir: './${{ github.workflow }}/dist'
+          production-branch: main
+          enable-pull-request-comment: true
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+          deploy-message: '🚀 Deployed on'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
