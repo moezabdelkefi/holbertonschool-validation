@@ -31,9 +31,8 @@ post: ## Create a new post with the title changed to the ENV value
 clean: ## Remove all files from the dist folder
 	$(RM) dist/*
 
-lint: ## Lint the shell file and run yamllint on success
-	$(SHELLCHECK) .Dockerfile
-	$(YAMLLINT) -c .yamllint.yml -f parsable **/*.yml
+lint: ## Lints the shell file and run yamllint on success.
+	hadolint Dockerfile
 
 yamllint: ## Run yamllint on specific files and check for specific conditions
 	$(YAMLLINT) ./github-workflow.yml --no-warnings >/dev/null 2>&1 && echo OK
