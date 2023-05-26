@@ -16,6 +16,3 @@ WORKDIR /usr/src/myapp
 
 # Install markdownlint with a specific version
 RUN npm install -g markdownlint-cli@0.26.0
-
-# Install Hugo
-RUN apk add --no-cache hugo
