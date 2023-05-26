@@ -51,4 +51,3 @@ package: ## produces a file awesome-website.zip
 
 lint-docker: build-docker
 	docker container run --rm -i hadolint/hadolint < .build/
-	

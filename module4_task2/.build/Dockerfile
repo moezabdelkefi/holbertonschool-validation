@@ -13,5 +13,5 @@ COPY . /usr/src/myapp
 # Set the working directory in the container
 WORKDIR /usr/src/myapp
 
-# Install markdownlint
-RUN npm install -g markdownlint-cli
+# Install markdownlint with a specific version
+RUN npm install -g markdownlint-cli@0.26.0
