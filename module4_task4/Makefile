@@ -27,7 +27,7 @@ post: ## Creates a new post with the title changed to the ENV value.
 	$(YQ) eval '.title = "$(POST_TITLE)"' ./content/posts/$(POST_NAME).md
 
 clean: ## Remove all files from target folder
-	$(RM) dist/*
+	@sudo $(RM) $(TARGET) $(TARGET).log $(COVERAGE)-units.out $(COVERAGE)-integrations.out dist/*
 
 lint: ## Lints the shell file and run yamllint on success.
 	hadolint Dockerfile
