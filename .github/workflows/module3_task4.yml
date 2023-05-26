@@ -1,0 +1,71 @@
+---
+name: module3_task4
+
+"on":
+  push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - closed
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  builds:
+    permissions: write-all
+    name: module3_task4
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: installation setup with hugo
+        run: |
+          cd module3_task4 &&
+          chmod u+x setup.sh
+          sudo ./setup.sh
+      - name: check makefile access and execute make
+        run: |
+          make help
+          make build
+          make lint
+          make run
+          make stop
+          make clean
+        working-directory: module3_task4
+
+      - name: create zip file with make package
+        run: |
+          cd module3_task4 && make package
+      - name: run tests
+        run: |
+          cd module3_task4/awesome-api && make unit-tests
+          cd module3_task4/awesome-api && make integration-tests
+          cd module3_task4 && make validate
+      - name: Package zip file if the tests pass
+        run: |
+          cd module3_task4 && make package
+
+      - name: Upload artifact
+        if: ${{ github.ref == 'refs/heads/master' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: Save zip file
+          path: |
+            module3_task4/awesome-website.zip
+      - name: make Release.txt
+        run: cat ./module3_task4/DEPLOY.md >> Release.txt
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/1.0.0')
+        with:
+          files: |
+            module3_task4/awesome-website.zip
+            module3_task4/DEPLOY.md
+          body: |
+            # Generate an archive when triggered by a tag
+            # How can I check if the app is running
+            # How do I make a new release using a tag
+            # What's in the zip file and how do I open it
+            # DEPLOY
