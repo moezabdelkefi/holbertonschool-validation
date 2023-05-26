@@ -73,26 +73,19 @@ docker-tests: Run container structure tests on the Docker image.
 
 make help
 
-help: Display a list of available targets and their usage  
-build: Compile both the Go application and Hugo website  
-Build-docker: Builds the Docker image used to perform other tasks  
-clean: Stop the application and delete the binary, log, coverage files,
-and Hugo website build  
-run: Run the application in the background and write logs to
-awesome-api.log  
-stop: Stop the running application  
-test: Test the application by running unit tests, integration
-tests, and validate  
-lint: Run static analysis on the source code using golangci-lint  
-unit-tests: Run the unit tests of the application with code coverage  
-integration-tests: Run the integration tests of the application with
-code coverage  
-check: Check markdown files for dead links and linting issues  
-post: Create a new publication file in the content/posts/ directory
-with a specified name and title  
-package: Create a ZIP archive containing the binary and the dist/ directory  
-lint-docker: Lint the Dockerfile using Hadolint.  
-docker-tests: Run container structure tests on the Docker image.  
+help: Display a list of available targets and their usage
+build: Compile both the Go application and Hugo website
+build-docker: Builds the Docker image used to perform other tasks
+clean: Stop the application and delete the binary, log, coverage files, and Hugo website build
+run: Run the application in the background and write logs to `awesome-api.log`
+stop: Stop the running application
+test: Test the application by running unit tests, integration tests, and validate
+lint: Run static analysis on the source code using `golangci-lint`
+unit-tests: Run the unit tests of the application with code coverage
+integration-tests: Run the integration tests of the application with code coverage
+check: Check markdown files for dead links and linting issues
+post: Create a new publication file in the `content/posts/` directory with a specified name and title
+package: Create a ZIP archive containing the binary and the `dist/` directory
 
 ----------------------
 
