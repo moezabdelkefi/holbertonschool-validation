@@ -48,3 +48,6 @@ help: ## Prints out the list of targets and their usage.
 package: ## produces a file awesome-website.zip
 	make build
 	zip -r awesome-website.zip awesome-api dist/
+
+lint-docker: build-docker
+	docker container run --rm -i hadolint/hadolint < .build/Dockerfile
