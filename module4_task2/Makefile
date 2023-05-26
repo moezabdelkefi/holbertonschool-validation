@@ -34,6 +34,7 @@ clean: ## should delete all the generated files (logs, test reports, distributio
 	pkill awesome-api || true
 	rm -rf awesome-api awesome-api.log coverage-units.out coverage-integrations.out
 	rm -rf dist/*
+	rm -f ./awesome-api
 
 post: ## Create a new blog post
 	hugo new posts/$(POST_NAME).md
