@@ -144,7 +144,8 @@ command are availaible :
 - Workflow module3_task 1 :
   -> Ensure that the workflow is executed into an Ubuntu 22.04
   -> install with script setup.sh
-  -> 1 job with at least 7 steps (checkout, running setup.sh and then the 5 make commands)
+  -> 1 job with at least 7 steps
+  (checkout, running setup.sh and then the 5 make commands)
 
 - Workflow module3_task 2 :
   same as previous
@@ -180,7 +181,8 @@ command are availaible :
   as the last workflow’s step
   -> When the workflow is triggered by a Pull Request, the deploy step is done
   on a preview site.
-  -> When the workflow is triggered on the principal branch, then it is deploy to production
+  -> When the workflow is triggered on the principal branch,
+  then it is deploy to production
 
 - Workflow module4_task0 :
   same as module3_task5
