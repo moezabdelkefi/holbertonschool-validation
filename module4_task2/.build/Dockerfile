@@ -6,7 +6,6 @@ RUN apk update && \
     apk add --no-cache --update curl gcc nodejs npm && \
     export GO111MODULE=on && \
     curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin && \
-    apk add --no-cache hugo && \
     rm -rf /var/cache/apk/*
 
 COPY . /usr/src/myapp
@@ -16,6 +15,3 @@ WORKDIR /usr/src/myapp
 
 # Install markdownlint with a specific version
 RUN npm install -g markdownlint-cli@0.26.0
-
-# test
-RUN apk add --no-cache hugo
