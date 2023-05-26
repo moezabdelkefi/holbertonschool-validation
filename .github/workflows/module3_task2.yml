@@ -1,6 +1,6 @@
 ---
 name: module3_task2
-# Events that trigger workflows
+
 on:
   push:
     branches:
@@ -26,6 +26,11 @@ jobs:
         run: |
           cd module3_task2
           make build
+
+      - name: "Linting" # Add the linting step
+        run: |
+          cd module3_task2
+          make lint
 
       - name: "Testing"
         run: |
