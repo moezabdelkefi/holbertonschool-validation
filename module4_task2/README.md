@@ -60,7 +60,8 @@ This project needs the following tools / services:
 - [shellcheck](https://intranet.hbtn.io/rltoken/7e95a2wDfOHFQGKJqRlHgg) v0.\*
 - [yamllint](https://intranet.hbtn.io/rltoken/B1BZ_C_5ANyq005Vd0LWNw) v1.\*
 - [jq](https://intranet.hbtn.io/rltoken/pVjsOvuSQavip_1Y4u--4Q) v1.\*
-- [“Hadolint”, the Haskell Dockerfile Linter](https://intranet.hbtn.io/rltoken/nGlz7o9eZiyOcK8YWq4nxg) v2.6.0
+- [“Hadolint”, the Haskell Dockerfile Linter](https://intranet.hbtn.io/rltoken/nGlz7o9eZiyOcK8YWq4nxg)
+v2.6.0
 - [Google’s Container Structure Test](https://intranet.hbtn.io/rltoken/-xKynPTm9JMlE41n8CYtxg) v1.10.0
 
 How to use the make file:
