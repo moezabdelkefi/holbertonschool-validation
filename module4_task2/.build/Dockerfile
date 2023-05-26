@@ -6,6 +6,7 @@ RUN apk update && \
     apk add --no-cache --update curl gcc nodejs npm && \
     export GO111MODULE=on && \
     curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin && \
+    apk add --no-cache hugo && \
     rm -rf /var/cache/apk/*
 
 COPY . /usr/src/myapp
