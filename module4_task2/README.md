@@ -134,7 +134,8 @@ command are availaible :
 - Workflow module3_task 0 :
   -> Clone the repository,
   -> Use ubuntu-22.04 as the virtual machine.
-  -> Position yourself in the correct directory and execute the command make help to
+  -> Position yourself in the correct directory
+  and execute the command make help to
   validate that the Makefile is present and implements the help target.
   -> This workflow must be triggered:
   Each time there is new code pushed on your repository,
