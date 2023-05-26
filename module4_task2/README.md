@@ -1,164 +1,208 @@
-# Module 1: Introduction to DevOps: Automate Everything
+# Module 2: Testing in the Software Development Methodology
 
 ## Learning Objectives
 
-This project aims at showing use cases where a DevOps mindset is bringing value
-to software project by automating it, which decreases the amount of manual work
-and increases the development speed. It focuses on why automation is useful and
- helps speeding a development lifecycle.
+This project aims at practicing with automated tests. The goal is to understand
+the pros and cons of different testing methods to be able to understand the value
+of doing, or not doing, a kind of test.
 
 After this project, you should be able to:
 
-- Understand the value of automating tedious tasks
-- Define a development lifecycle
-- Automate shell-like tasks with Make, and/or shell script
-- Be aware of tools dependencies and the value of reproducing environment
-- Build static HTML website from Markdown code using Go-Hugo
+Understand what linting is the extent of its usages (which kind of file can be linted,
+and the impact of running it often)
+Understand the difference between unit tests and integration tests
+Use code coverage as a helper to write tests
+Understand that not only “classical” code is to be tested, but also a
+lot of the artifacts we can generate
+Understand how “component”-based testing for acceptance and end to end
+validation is to be used
 
 ## Prerequisites
 
-The following elements are required In addition to the previous module (“Module
-0:Linux Fundamentals, Code management with Git, GitHub and the GitFlow pattern”)
-prerequisites.
+The following elements are required in addition to the previous
+module (“Module 1: Introduction to DevOps:
+Automate Everything to Focus on What Really Matters”) prerequisites.:
 
-Concepts
+### Concepts
 
 You should have a basic knowledge of the following concepts:
 
-- Shell terminal basics, using command lines:
+- What a compiled language is (C/C#/Golang/Rust/etc.)
 
-- Navigating in a Unix file-system
-- Understanding how stdin/stdout redirection and piping
-- Showing and searching the content of a text files
-- Defining and using Environment Variables
-- Adding command lines to your terminal using the apt-get package manager and/or
-with the PATH variable
-- Writing and executing a shell script
+  - Generation process from source to executable binary
+  - Basic types: string, integer, boolean, maps, arrays
+  - Basic algorithmic: loops, conditional, functions
 
-- Git with the command line (and also a graphical interface)
+- Installing command line tools with NPM (in addition to package managers)
 
-- Retrieving or creating a repository
-- Manipulating changes locally with Git’s 3 steps process (workspace, staging,
-history)
-- Distributing changes history with remotes repositories
+- Understand the basics of the HTTP protocol (client/server, verbs, headers)
 
-- Make/Makefile usage:
-
-- Executing tasks through make targets
-- Default target and PHONY target
-- Makefile’s variables and macro syntax
-
-Tooling
+### Tooling
 
 This project needs the following tools / services:
 
 - An HTML5-compliant web browser (Firefox, Chrome, Opera, Safari, Edge, etc.)
 - A free account on [GitHub](https://github.com/), referenced as `GitHub Handle`
-- A shell terminal with bash, zsh or ksh, including the standard Unix toolset
-(ls, cd, etc.)
+- A shell terminal with bash, zsh or ksh, including the standard
+  Unix toolset (ls, cd, etc.)
 - [GNU](https://www.gnu.org/software/make/) Make in version 3.81+
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-The-Command-Line)
-(command line) in version 2+
-- [Go Hugo](https://gohugo.io/) v0.80+
+  (command line) in version 2+
+- [Go Hugo](https://gohugo.io/) v0.84+
+- [Golang](https://intranet.hbtn.io/rltoken/5ypbIenKj6LiymRm619--A) v1.15.\*
+- [NPM](https://intranet.hbtn.io/rltoken/RcU82lwHHO4xEQCtWEv1sg)v7
+- [NodeJS](https://intranet.hbtn.io/rltoken/XWIqoQhjv16uVWfGbCdInw) v14.\*
+- [markdownlint-cli](https://intranet.hbtn.io/rltoken/hplwMW8M8BKVQyhDso0pOw) v0.26.0
+- [markdown-link-check](https://intranet.hbtn.io/rltoken/BRJGBHXvkAUKt50KrFOm0A)
+  v3.8.6
+- [Holberton's W3C Validator](https://intranet.hbtn.io/rltoken/ll8gJ8CPoI9tfn1OTDE8rA)
+- [yq](https://intranet.hbtn.io/rltoken/9wlxJjlqCE6XyPa6TQ0RsQ) v4.5.0
+- [shellcheck](https://intranet.hbtn.io/rltoken/7e95a2wDfOHFQGKJqRlHgg) v0.\*
+- [yamllint](https://intranet.hbtn.io/rltoken/B1BZ_C_5ANyq005Vd0LWNw) v1.\*
+- [jq](https://intranet.hbtn.io/rltoken/pVjsOvuSQavip_1Y4u--4Q) v1.\*
+- [“Hadolint”, the Haskell Dockerfile Linter ](https://intranet.hbtn.io/rltoken/nGlz7o9eZiyOcK8YWq4nxg) v2.6.0
+- [Google’s Container Structure Test](https://intranet.hbtn.io/rltoken/-xKynPTm9JMlE41n8CYtxg) v1.10.0
 
 How to use the make file:
 
-## Build Workflow
+## Lifecycle
 
-You can see that some tools required to build our application, like make or
-Golang, are available. But others are missing.
+In the DevOps methodology, the development lifecycle is generally staying the same.
+Use the following steps :
 
-There are 2 different strategies to solve this challenge, each one with its pro
-and cons:
+To execute the Makefile use the following syntax:
+`make <command>`
 
-- Install the tools during the build:
+command are availaible :
 
-- ✅ It ensures that you have an automated and always up-to-date installation
-system
-- ❌ but it slows down the builds (you have to wait for all tools be installed
-while you want a feedback as soon as possible)
-- Ensure that the workflow is running inside a pre-built environment with all
-the required tools
+- `help`:
 
-- ✅ Fast feedback: you don’t need to wait for tools installation
-- ❌ Maintenance overhead as you need to manage the pre-built environment
-For this module, we’ll use the 1st strategy, and the 2nd will be covered in the
-“Docker” module.
+  - show all command description
 
-It should be an easy step: you already wrote a script `setup.sh` which role was
-to install Hugo in the production environment: let’s reuse this work!
+- `build`:
 
-You are expected to create new workflow named `module3_task1` from the previous
-workflow.
+  - Builds a new version of the website to folder `/dist/` in docker image
 
-This new workflow should execute the following targets as distinct steps:
-`lint`, `build`, `unit-tests`, `validate` and `integration-tests`.
+- `build-docker`:
 
-Regarding the tooling, you have to:
+  - Builds docker image
 
-- Ensure that the workflow is executed into an `Ubuntu 18.04` execution
-environment
-- Ensure that all the required tools are installed prior to any `make` target,
-by executing the script `setup.sh`
-- ⚠️ The script should be modified to only install missing tools (no `make`
-target are expected)
-- ✨ As you are expected to understand the value of linters, tests and
-documentation, you are also expected to lint the script setup.sh during
-the target `make lint` using `Shellcheck`
+- `docker-tests`:
+
+  - Tests docker image
+
+- `run`: Run the application in background by executing the binary `awesome-api`,
+  and write logs into a file named `awesome-api.log`
+
+- `clean`:
+
+  - Delete binary and log file
+
+- `post`:
+
+  - Creates a new post in the contents/post folder with POST_TITLE and POST_NAME
+    set from the ENV variables.
+
+- `check`:
+
+  - Lint of the Markdown source files using command line AND
+    analysis of the links with
+    command line. If one test fails, the command failed.
+
+- `validate`:
+
+  - validate the file ./dist/index.html by using command line. But non-blocking
+    quality indicator
+
+- `test`: Test to ensure that it behaves as expected.
+
+- `lint`: Test lint in the files
+
+- `unit-tests`: Run files with the \_test.go suffix
+
+- `integration-tests`: Run Golang integration tests
+
+- `package`: Produce awesome-website.zip containing awesome-api and dist directory
+
+- `stop`: Stop the application with the command kill XXXXX where XXXXX is the Process
+  ID of the application.
 
 ## Workflow
 
-You are expected to create a new [workflow](https://docs.github.com/en/actions)
-named `module3_task0` with only the following steps:
+- Workflow module3_task 0 :
+  -> Clone the repository,
+  -> Use ubuntu-22.04 as the virtual machine.
+  -> Position yourself in the correct directory and execute the command make help to
+  validate that the Makefile is present and implements the help target.
+  -> This workflow must be triggered:
+  Each time there is new code pushed on your repository,
+  And once per day (whatever time you want).
 
-- Clone the repository,
-- Position yourself in the correct directory and execute the command `make help`
-to validate that the Makefile is present and implements the help target.
+- Workflow module3_task 1 :
+  -> Ensure that the workflow is executed into an Ubuntu 22.04
+  -> install with script setup.sh
+  -> 1 job with at least 7 steps (checkout, running setup.sh and then the 5 make commands)
 
-This workflow must be [triggered](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows):
+- Workflow module3_task 2 :
+  same as previous
+- target package to generate ZIP file
+- archive ZIP file if tests and validation have run successfully
 
-- Each time there is new code pushed on your repository,
-- And once per day (whatever time you want).
+- Workflow module3_task 3 :
+  same as previous
+- Generate an archive when triggered by a tag
+- Create a release with the archive and content of `DEPLOY.md`
+  when triggered by a tag
+- Behave the same as “module3_task2” when triggered by something else than a tag
+  (e.g. archive without version name, and no release)
+- Be enabled in GitHub Actions and must have been run successfully with a tag `1.0.0`
 
-## Lifecycle
+- Workflow module3_task 4 :
+  New workflow for new collaboration process by using GitHub Pull Request:
+  ->would be triggered by a pull request (additionally to the existing
+  triggers). It should behave the same in a Pull Request as when triggered
+  by a code change.
 
-To execute the make file use the following syntax `make <command>`
+- Workflow release_drafter :
+  -> Generate a changelog based on the merged Pull Request’s titles,
+  since the previous release
+  -> Write this changelog in a “draft GitHub Release”
+  -> Be linked into the current task’s directory (same pattern as the
+  github-workflow.yml file)
+  -> Be configured through the default .github/release_drafter.yml
+  -> Runs on ubuntu-22.04
 
-`build`:
- Builds a new version of the website to folder `/dist/`
-`clean`:
-Removes the contents the folder `/dist/`
-`post`:
-Creates a new post in the contents/post folder with POST_TITLE and POST_NAME
-set from the ENV variables
-`help`:
-Prints out information of the commands to the terminal.
+- Workflow module3_task5 :
+  -> A new step “deploy”, based on the “nwtgck/actions-netlify” Action, is run
+  as the last workflow’s step
+  -> When the workflow is triggered by a Pull Request, the deploy step is done
+  on a preview site.
+  -> When the workflow is triggered on the principal branch, then it is deploy to production
+
+- Workflow module4_task0 :
+  same as module3_task5
+
+- Workflow module4_task1 :
+  same as previous
+
+- Workflow module4_task1 :
+  same as previous
+  & Docker image: lint and test
+
+- Workflow module4_task2 :
+  same as previous
+  & Docker image test
+
+## Docker Image
+
+Construction of Dockerfile with all environment when build-docker is invoked.
+-> name: awesome:build
+All instruction existing inside the Docker Image awesome:build.
 
 ## Story
 
-Congratulations!
+Now that your teams are using CI/CD, you would like to solve the “reproducibility”
+challenge for both the build environment and the production environment.
 
-It’s your first day at “Awesome Inc.” as a software engineer. This company is
-currently experiencing fast growth and hired you to work on their web services
-
-Your predecessor left to travel the world, and the expectations are high on your
-ability to help "Awesome Inc.” to grow a culture of collaboration with a
-technical mindset, while managing their existing web services. That’s exactly
-what DevOps is about!
-
-# Workflow
-
-- install tools
-- lint
-- help
-- build
-- build-docker
-- docker-tests
-
-# Build
-
-- package
-- relase
-- archive build
-- upload-package
-- deploy
+While it’s not the only way of doing it, Docker would be a great tool for solving
+these challenges.
