@@ -32,6 +32,7 @@ clean: ## Remove all files from target folder
 lint: ## Lints the shell file and run yamllint on success.
 	hadolint Dockerfile
 	yamllint -c .yamllint.yml -f parsable **/*.yml
+	@sudo $(RM) $(TARGET) $(TARGET).log $(COVERAGE)-units.out $(COVERAGE)-integrations.out dist/*
 
 yamllint: ## Yamllint github workflow.
 	$(YAMLLINT) ./github-workflow.yml --no-warnings >/dev/null 2>&1 && echo OK
