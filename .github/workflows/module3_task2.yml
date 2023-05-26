@@ -1,30 +1,22 @@
 ---
 name: module3_task2
-
-on:
+# Events that trigger workflows
+on: # yamllint disable-line rule:truthy
   push:
     branches:
-      - main
+      - master
   schedule:
     - cron: "0 0 * * *"
-
 jobs:
   build:
     runs-on: ubuntu-22.04
-
     steps:
-      - name: "Checkout"
+      - name: "Checkout" # Download code from the repository
         uses: actions/checkout@v3
-
       - name: "Run bash script"
         run: cd module3_task2 && ./setup.sh
-
-      - name: "Install markdownlint"
-        run: npm install -g markdownlint-cli
-
-      - name: "Run make build"
+      - name: "Run make build" # Execute the command make build
         run: cd module3_task2 && make build
-
       - name: "Testing"
         run: |
           cd module3_task2 && make validate
@@ -32,9 +24,8 @@ jobs:
           make unit-tests
           make package
           make clean
-
-      - name: "Archive build"
+      - name: "archive build"
         uses: actions/upload-artifact@v3
         with:
-          name: "Upload package"
+          name: "upload package"
           path: module3_task2/awesome-website.zip
