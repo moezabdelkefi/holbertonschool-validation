@@ -155,7 +155,7 @@ what DevOps is about!
 - build-docker
 - docker-tests
 
-# Build Workflow
+# Build
 
 - package
 - relase
