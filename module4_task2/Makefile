@@ -14,7 +14,6 @@ stop: ## Stop the Go application
 lint: build-docker ## Must execute all lint steps using the Docker image
 	docker run --rm -v "$(PWD)":/usr/src/myapp -w /usr/src/myapp awesome:build markdownlint DEPLOY.md README.md
 
-
 docker-tests: ## Run container structure tests on the Docker image
 	-make build-docker
 	container-structure-test test --image awesome:build --config ./.build/cst.yml
@@ -30,7 +29,6 @@ unit-tests: ## Should be implemented and should execute (successfully) the Golan
 integration-tests: ## Should be implemented and should execute (successfully) the Golang integration tests
 	docker run --volume ${GITHUB_WORKSPACE}/module4_task2/:/go golang:1.15.8-alpine ls && go test -v -coverprofile=coverage-integrations.out
 
-
 clean: ## should delete all the generated files (logs, test reports, distribution directory, etc.) and call the make stop target as preliminary
 	make stop || true
 	pkill awesome-api || true
@@ -41,7 +39,7 @@ post: ## Create a new blog post
 	hugo new posts/$(POST_NAME).md
 	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
-validate: ## checks if  the generated HTML is compliant with the W3C (acceptance testing)
+validate: ## checks if the generated HTML is compliant with the W3C (acceptance testing)
 	@./w3c_validator.py ./dist/index.html || true
 
 help: ## Prints out the list of targets and their usage.
